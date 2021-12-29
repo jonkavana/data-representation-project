@@ -1,4 +1,6 @@
-from flask import Flask, url_for, request, redirect, abort 
+# If things go wrong with DR9.5 video, just go to 8.3 - all detailed in there
+# Will also need to review the client side server
+from flask import Flask, url_for, request, redirect, abort, jsonify 
 
 app = Flask(__name__, static_url_path='', static_folder='staticPages')
 
