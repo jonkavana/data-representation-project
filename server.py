@@ -1,10 +1,15 @@
-from flask import Flask, url_for
+from flask import Flask, url_for, request, redirect, abort 
 
 app = Flask(__name__, static_url_path='', static_folder='staticPages')
 
 @app.route('/')
 def index():
-    return "Hello World"
+    return redirect (url_for('login'))
+
+@app.route('/login')
+def login():
+    abort(401)
+    return "Served by the login function"
 
 @app.route('/user')
 def getUser():
@@ -24,6 +29,10 @@ def demoUrlFor():
     returnString += "<br/>"
     returnString += "url for getById " + url_for('getById', id=12) 
     return returnString 
+
+@app.route("/demo_request", methods=['POST','GET', 'DELETE'])
+def demoRequest():
+    return request.method
 
 if __name__ == "__main__":
     print("in if")
