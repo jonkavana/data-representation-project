@@ -30,13 +30,44 @@ class StudentDAO:
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
-        print(results)
+        # Test the initial connection between the funciton and the db.
+        # print(results)
         
         for result in results:
             resultAsDict = self.convertToDict(result)
             returnArray.append(resultAsDict)
 
         return returnArray
+              
+    def findById(self, id):
+        cursor = self.db.cursor()
+        sql="select * from student where id = %s"
+        values = [ id ]
+        cursor.execute(sql, values)
+        result = cursor.fetchone()
+        return self.convertToDict(result)
+
+    def updateRecord(self, student):
+        cursor = self.db.cursor()
+        sql="update student set name= %s, age=%s where id = %s"
+        values = [
+            student['name'],
+            student['age'],
+            student['id']
+        ]
+        cursor.execute(sql, values)
+        self.db.commit()
+        return student
+
+    def deleteRecord(self, id):
+        cursor = self.db.cursor()
+        sql="delete from student where id = %s"
+        values = [id]
+        cursor.execute(sql, values)
+        self.db.commit()
+        # Test the initial deletion function.
+        # print("Deletion completed")
+        return {}
 
     def convertToDict(self, result):
         colNames = ['id', 'name', 'age']
@@ -47,28 +78,6 @@ class StudentDAO:
                 value = result[i]
                 student[colName] = value
         return student
-                
-    #def findById(self, id):
-        #cursor = self.db.cursor()
-        #sql="select * from student where id = %s"
-        #values = (id,)
-        #cursor.execute(sql, values)
-        #result = cursor.fetchone()
-        #return result
-
-    #def updateRecord(self, values):
-        #cursor = self.db.cursor()
-        #sql="update student set name= %s, age=%s where id = %s"
-        #cursor.execute(sql, values)
-        #self.db.commit()
-
-    #def deleteRecord(self, id):
-        #cursor = self.db.cursor()
-        #sql="delte from student where id = %s"
-        #values = (id,)
-        #cursor.execute(sql, values)
-        #self.db.commit()
-        #print("Deletion completed")
 
 secondDao = StudentDAO()
 
