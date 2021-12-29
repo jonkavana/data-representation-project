@@ -7,5 +7,5 @@ student = {
 }
 
 # returnValue = secondDao.create(student)
-returnValue = result = secondDao.getAll()
+returnValue = secondDao.getAll()
 print(returnValue)

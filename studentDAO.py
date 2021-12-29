@@ -31,7 +31,23 @@ class StudentDAO:
         results = cursor.fetchall()
         returnArray = []
         print(results)
+        
+        for result in results:
+            resultAsDict = self.convertToDict(result)
+            returnArray.append(resultAsDict)
 
+        return returnArray
+
+    def convertToDict(self, result):
+        colNames = ['id', 'name', 'age']
+        student = {}
+        
+        if result:
+            for i , colName in enumerate(colNames):
+                value = result[i]
+                student[colName] = value
+        return student
+                
     #def findById(self, id):
         #cursor = self.db.cursor()
         #sql="select * from student where id = %s"
