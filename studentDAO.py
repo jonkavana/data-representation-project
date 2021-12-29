@@ -1,6 +1,6 @@
 import mysql.connector
 
-class StudentDao:
+class StudentDAO:
     db = ""
     def __init__(self):
         self.db = mysql.connector.connect(
@@ -10,22 +10,27 @@ class StudentDao:
         database = "datarepresentation"
         )
         # Test the initial connection between central file and testing script
-        # print("connection established")
+        print("connection established")
 
-    #def create(self, values):
-        #cursor = self.db.cursor()
-        #sql="insert into student (name, age) values (%s,%s)"
-        #cursor.execute(sql, values)
+    def create(self, student):
+        cursor = self.db.cursor()
+        sql="insert into student (id, name, age) values (%s,%s,%s)"
+        values = [
+            student['id'],
+            student['name'],
+            student['age']
+        ]
+        cursor.execute(sql, values)
+        self.db.commit()
+        return cursor.lastrowid
 
-        #self.db.commit()
-        #return cursor.lastrowid
-
-    #def getAll(self):
-        #cursor = self.db.cursor()
-        #sql="select * from student"
-        #cursor.execute(sql)
-        #result = cursor.fetchall()
-        #return result
+    def getAll(self):
+        cursor = self.db.cursor()
+        sql="select * from student"
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        returnArray = []
+        print(results)
 
     #def findById(self, id):
         #cursor = self.db.cursor()
@@ -49,7 +54,7 @@ class StudentDao:
         #self.db.commit()
         #print("Deletion completed")
 
-secondDAO = StudentDao()
+secondDao = StudentDAO()
 
 
 # from DAO video
