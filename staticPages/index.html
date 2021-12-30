@@ -1,47 +1,207 @@
 <html>
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-       
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div id="create-update" style="display:none;">
+            <h2>create-update</h2>
+            <table id="createUpdateForm">
+                <tr>
+                    <td>id</td>
+                    <td><input type="text" name="id" id="idInput"></td>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td><input type="text" name="name"></td>
+                </tr>    
+                <tr>
+                    <td>age</td>
+                    <td><input type="currency" name="age"></td>
+                </tr>
+                <tr>
+                    <td></td><td>
+                        <button id = "create-button" onclick="doCreate()">Create</button>
+                        <button id = "update-button" onclick="doUpdate()">Update</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id ="display">
+            <h2>Students</h2>
+            <button onclick="showCreate()">Create</button>
+            <table id="studentTable" class="table">
+                <tr>
+                    <th>id</th><th>name</th><th>age</th>
+                </tr>
 
-</head>
+            </table>
+        </div>
+        <script>
+            
+            function showCreate(){
+                document.getElementById('display').style.display = "none"
+                document.getElementById('update-button').style.display = "none"
+                document.getElementById('create-button').style.display = "block"
+                document.getElementById('create-update').style.display = "block"
+            }
 
-<body>
-    <div id="create-edit" style="display:none;">
-        <h2>create-edit</h2>
-        <table>
-            <tr>
-                <td>id</td>
-                <td><input type="text" name="id"></td>
-            </tr>
-            <tr>
-                <td>name</td>
-                <td><input type="text" name="name"></td>
-            </tr>    
-            <tr>
-                <td>age</td>
-                <td><input type="currency" name="age"></td>
-            </tr>
-            <tr>
-                <td></td><td><button id = "create-edit-button">go</button></td>
-            </tr>
-        </table>
-    </div>
-    <div id ="display">
-        <h2>Students</h2>
-        <table id=studenttable class="table">
-            <tr>
-                <th>id</th><th>name</th><th>age</th>
-            </tr>
-            <tr id="123">
-                <td>123</td>
-                <td>Martin</td>
-                <td>37</td>
-                <td><button onclick="showUpdate(this)">Update</button></td>
-                <td><button onclick="makeDelete(this)">Delete</button></td>
-            </tr>
-        </table>
-    </div>
-</body>
+            function showUpdate(thisElem){
+                var rowElement = thisElem.parentNode.parentNode;
+                stud = readStudentFromRow(rowElement)
+                populateForm(stud)
+                document.getElementById('display').style.display = "none"
+                document.getElementById('update-button').style.display = "block"
+                document.getElementById('create-button').style.display = "none"
+                document.getElementById('create-update').style.display = "block"
+            }
+            
+            function readStudentFromRow(rowElement){
+                stud = {}
+                stud.id = rowElement.getAttribute("id");
+                stud.name = rowElement.cells[1].firstChild.textContent
+                stud.age = rowElement.cells[2].firstChild.textContent
+                return stud 
+            }
 
+            function populateForm(stud){
+                var form = document.getElementById('createUpdateForm')
+                form.querySelector('input[name="id"]').value = stud.id
+                form.querySelector('input[name="id"]').disabled = true
+                form.querySelector('input[name="name"]').value = stud.name
+                form.querySelector('input[name="age"]').value = stud.age 
+            }
+
+            function clearForm(){
+                var form = document.getElementById('createUpdateForm')
+                
+                form.querySelector('input[name="id"]').value = ''
+                form.querySelector('input[name="id"]').disabled = false
+                form.querySelector('input[name="name"]').value = ''
+                form.querySelector('input[name="age"]').value =''
+            }
+
+            function doCreate(){
+                console.log("in doCreate")
+                stud= getStudentFromForm()
+                console.log(stud)
+                $.ajax({
+                    url: '/student',
+                    data:JSON.stringify(stud),
+                    method: "POST",
+                    dataType:"JSON",
+                    contentType: "application/json; charset=uft-8",
+                    success:function(result){
+                        console.log(result)
+                        addStudToTable(stud)
+                        showDisplay()
+                        clearForm()
+                    },
+                    error:function(xhr,status,error){
+                        console.log ("error "+error)
+                    }
+                })
+            }
+
+            function doUpdate(){
+                stud = getStudentFromForm()
+                updateServer(stud)
+
+            }
+
+            function updateServer(stud){
+                $.ajax({
+                    url: '/student/'+stud.id,
+                    data: JSON.stringify(stud),
+                    method: "PUT",
+                    dataType: "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    success: function(result) {
+                        console.log(result)
+                        updateTableRow(stud)
+                        showDisplay()
+                        clearForm()
+                    },
+                    error: function(xhr, status, error){
+                        console.log("error" + error)
+                    }
+                })
+            }
+
+            function makeDelete(thisElem){
+                var tableElement = document.getElementById('studentTable');
+                var rowElement = thisElem.parentNode.parentNode;
+                var index = rowElement.rowIndex;
+                id = rowElement.getAttribute("id");
+                $.ajax({
+                    url: '/student/'+id,
+                    method: "DELETE",
+                    dataType:"JSON",
+                    success:function(result){
+                        tableElement.deleteRow(index);
+                    },
+                    error:function(xhr,status,error){
+                        console.log (error)
+                    }
+                })
+            }
+            
+            function updateTableRow(book){
+                rowElement = document.getElementById(stud.id)
+                rowElement.cells[1].firstChild.textContent = stud.name
+                rowElement.cells[2].firstChild.textContent = stud.age
+                // console.log("updating table")
+            } 
+
+            function getStudentFromForm(){
+                var form = document.getElementById('createUpdateForm')
+                var stud = {}
+                stud.id = form.querySelector('input[name="id"]').value
+                stud.name = form.querySelector('input[name="name"]').value
+                stud.age = form.querySelector('input[name="age"]').value            
+                // console.log(stud)
+                return stud
+            }
+
+
+            function showDisplay(){
+                document.getElementById('display').style.display = "block"
+                document.getElementById('create-update').style.display = "none"
+            }
+
+            function populateTable(){
+                // ajxa getAll
+                $.ajax({
+                    url:'http://127.0.0.1:5000/student',
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success:function(results){
+                        for (stud of results){
+                            addStudToTable(stud)
+                        } 
+                    },
+                    error:function(xhr,status,error){
+                        console.log ("error "+error + " code:"+status)
+                    }
+                })
+            }
+            function addStudToTable(stud){
+                //console.log("works fine to me")
+                tableElem = document.getElementById("studentTable")
+                rowElem = tableElem.insertRow(-1)
+                rowElem.setAttribute("id", stud.id)
+                cell1=rowElem.insertCell(0)
+                cell1.innerHTML = stud.id
+                cell2=rowElem.insertCell(1)
+                cell2.innerHTML = stud.name
+                cell3=rowElem.insertCell(2)
+                cell3.innerHTML = stud.age
+                cell4=rowElem.insertCell(3)
+                cell4.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+                cell5=rowElem.insertCell(4)
+                cell5.innerHTML = '<button onclick="makeDelete(this)">Delete</button>'
+            }
+            populateTable()
+        </script>
+    </body>
 </html>
