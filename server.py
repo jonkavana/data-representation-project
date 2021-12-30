@@ -25,8 +25,9 @@ def getAll():
 
 # Get user by id
 @app.route('/student/<int:id>')
-def getById(id):
-    return jsonify({}) 
+def findById(id):
+    return jsonify(secondDao.findById(id))
+
     #return "Served by the getById function with id = "+str(id) 
 
 # code that was run in order to return create testing correctly
@@ -43,22 +44,23 @@ def createUser():
         "name": request.json["name"],
         "age": request.json["age"]
     }
-    return jsonify({})
+    return jsonify(secondDao.createUser(studen))
 
 # code that was run in order to return update testing correctly
 # λ curl -X PUT -d "{\"name\": \"test2\", \"age\":56}" -H Content-Type:application/json http://127.0.0.1:5000/student/123
 
 # Update a id
 @app.route('/student/<int:id>', methods=['PUT'])
-def update(id):
-    foundBooks = []
-    if len(foundBooks) == 0:
+def updateRecord(id):
+    foundBook = secondDao.findById(id)
+    if foundBook == {}:
         return jsonify({}), 404
-    currentBook = foundBooks[0]
+    currentBook = foundBook
     if 'name' in request.json:
         currentBook['name'] = request.json['name']
     if 'age' in request.json:
         currentBook['age'] = request.json['age']
+    secondDao.updateRecord(currentBook)
     return jsonify(currentBook)
 
 # code that was run in order to return DELETE testing correctly
@@ -66,11 +68,9 @@ def update(id):
 
 # delete by id
 @app.route('/student/<int:id>', methods=['DELETE'])
-def delete(id):
+def deleteRecord(id):
+    secondDao.deleteRecord(id)
     return jsonify({"done":True})
-
-
-
 
 
 @app.route("/demo_url_for")

@@ -18,7 +18,7 @@ student3 = {
     'age' : 73
 }
 
-# returnValue = secondDao.create(student)
+# returnValue = secondDao.createUser(student)
 returnValue = secondDao.getAll()
 print(returnValue)
 returnValue = secondDao.findById(student2['id'])
