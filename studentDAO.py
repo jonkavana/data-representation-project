@@ -1,16 +1,17 @@
 import mysql.connector
+import dbconfig as cfg
 
 class StudentDAO:
     db = ""
     def __init__(self):
         self.db = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password= "root",
-        database= "datarepresentation"
+        host=   cfg.mysql['host'],
+        user=   cfg.mysql['user'],
+        password=   cfg.mysql['password'],
+        database=   cfg.mysql['database']
         )
         # Test the initial connection between central file and testing script
-        print("connection established")
+        # print("connection established")
 
     def createUser(self, student):
         cursor = self.db.cursor()
