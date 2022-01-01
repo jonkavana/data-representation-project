@@ -7,15 +7,15 @@ app = Flask(__name__, static_url_path='', static_folder='staticPages')
 
 @app.route('/')
 def index():
-    return redirect (url_for('login'))
+    return redirect (url_for('home.html'))
 
 @app.route('/login')
 def login():
     abort(401)
     return "Served by the login function"
 
-@app.route('/user')
-def getUser():
+# @app.route('/user')
+# def getUser():
     return "Served by the getUser function"
 
 # Get All records for students 
