@@ -81,8 +81,3 @@ class StudentDAO:
         return student
 
 secondDao = StudentDAO()
-
-
-# from DAO video
-# do i need to make the initdb.sql file? 
-# create function used different parameter
