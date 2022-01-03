@@ -5,19 +5,16 @@ from StudentDAO import secondDao
 
 app = Flask(__name__, static_url_path='', static_folder='staticPages')
 
+# Create a decorator that allows the home page to be visible from first view.
 @app.route('/')
 def index():
-    #return redirect (url_for('home.html'))
     return redirect("home.html")
 
+# If entered incorrectly, a standard abort error displayed.
 @app.route('/login')
 def login():
     abort(401)
     return "Served by the login function"
-
-# @app.route('/user')
-# def getUser():
-    # return "Served by the getUser function"
 
 # Get All records for students 
 @app.route('/student')
@@ -29,17 +26,13 @@ def getAll():
 def findById(id):
     return jsonify(secondDao.findById(id))
 
-    #return "Served by the getById function with id = "+str(id) 
-
 # code that was run in order to return create testing correctly
 # curl -X POST -d "{\"id\":10, \"name\": \"test\", \"age\":89}" -H Content-Type:application/json http://127.0.0.1:5000/student
-
 # Create a user
 @app.route('/student', methods=['POST'])
 def createUser():
     if not request.json:
         abort(400)
-    # return "Served by the createUser function"
     studen = {
         "id": request.json["id"],
         "name": request.json["name"],
@@ -49,7 +42,6 @@ def createUser():
 
 # code that was run in order to return update testing correctly
 # λ curl -X PUT -d "{\"name\": \"test2\", \"age\":56}" -H Content-Type:application/json http://127.0.0.1:5000/student/123
-
 # Update a id
 @app.route('/student/<int:id>', methods=['PUT'])
 def updateRecord(id):
@@ -66,13 +58,11 @@ def updateRecord(id):
 
 # code that was run in order to return DELETE testing correctly
 # curl -X DELETE http://127.0.0.1:5000/student/123
-
 # delete by id
 @app.route('/student/<int:id>', methods=['DELETE'])
 def deleteRecord(id):
     secondDao.deleteRecord(id)
     return jsonify({"done":True})
-
 
 @app.route("/demo_url_for")
 def demoUrlFor():
