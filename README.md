@@ -2,28 +2,31 @@
 Data Representation Project 2021
 
 ## Description
-The purpose of this project is to be able to demonstrate a fundamental understanding of a functional and operational Restful API linked to a web application that stores up to date information in a database. This project can be used in whichever manner is seen to demonstrate the following, at a minimum:
+The purpose of this project is to be able to demonstrate a fundamental understanding of a functional and operational Restful API that sits in-between a web application and datebase, which when properly running will be running live. This project can be used in whichever manner is seen to demonstrate the following, at a minimum:
 
 > Flask Server <br>
 > REST API <br>
 > Database Table <br>
 > Web interface <br>
 
-The web application has been developed in Flask server with an API that performs calls with a database table. This API has been developed so that it can perform CRUD operations i.e., Create, Read, Update & Delete files. Authorisation has also been added to this project, such that only those with a specific Username & Password have access to this web application.
+The web application has been developed in Flask server with an API that performs calls with a database table. This API has been developed so that it can perform CRUD operations i.e., Create, Read, Update & Delete files. Authorisation has also been added to this project, such that only those with a specific Username & Password have access to this web application and its subsequent functionality.
 
-## Installation
-In order to run this Project, the user will have to clone the publicly available repository to their local machine, via https://github.com/jonkavana/data-representation-project Once this has been successfully completed, the user will need to be able to create a virtual environment. This can be completed with the following commands.
+## Installation for accessing files via a Virtual Environment.
+In order to run these files, the user will have to clone the publicly available repository to their local machine, via https://github.com/jonkavana/data-representation-project. Once this has been successfully completed, the user will need to be able to create a virtual environment. This can be completed with the following command from the terminal.
+For further advise on the running of the git commands, please see the Support & Research section detailed below.
 
 > "python -m venv venv" <br>
 > ".\venv\Scripts\activate.bat" <br>
 
-Once the virtual has been stood up, a requirements text file will allow the environment to be re-created. The contents of this file can be accessed from any text file editor prior to running it. Once reviewed, run the following command:
+Once the virtual environment has been stood up, a requirements text file will allow the environment to be re-created. The contents of this file can be accessed from any text file editor prior to running it. Notepad is a free text editor that can be downloaded via https://notepad-plus-plus.org/.
+
+Once reviewed, run the following command:
 
 > "pip freeze -r requirements.txt" <br>
 
 You have now created the virtual environment if you have followed these steps correctly. If there are any issues with this, a listing of websites has been created in the Research & Support section detailed below.
 
-## Instructions
+## Instructions for running files once V.Env is live
 If you have successfully created a virtual environment as detailed in the 'Installation' section above, then you can proceed with the Project. Copy and paste the URL that the virtual environment generates into your preferred browser. This project has been developed in both Chrome & Firefox. Once you run this URL, you will automatically be shown the 'home.html' page. This page has been created so that it has a closed audience. For ease of access however, the credentials have been left in a semi-transparent manner in the field itself.
 
 > Username: Lecturer <br>
@@ -37,32 +40,36 @@ The Id has been set as the primary key within the database. If the user has acci
 
 ## Research & Support
 Pip Command Support - https://pip.pypa.io/en/stable/cli/pip_freeze/
+Git Commands - https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html
+Notepad ++ - https://notepad-plus-plus.org/ 
 
-## Additional Material
+## Additional Supporting Material
 ### Test files
 There are also several test files that were developed in tandem with any of the functionality that was developed. These can be seen in the following files:
 
 > testDBSelect.py <br>
 
-The first of these files was created when there was a need to create a layer of security and to allow for a user not in the local devise to access the database.
+The above file was created when there was a need to create a layer of security and to allow for a user not in the local devise to access the database.
 
 > testStudentDao.py <br>
 
-This second of these files was created whilst developing the basic operations of the web application.
+This second file was created whilst developing the basic operations of the web application, and has tested all of the CRUD operations as they were developed.
 
-### Archive Folder
-This folder has been created to store all of the important information that was of great importance to create the overall studentDao.py file. There are several of these individual files that have been left here for future devleopment if required. <br>
+### 'Archive' Folder
+This folder has been created to store all of the important information that was of great importance to create the overall studentDao.py file. There are several of these individual files that have been left here for future development if required. <br>
 There is also the central file that details the requirements and marking scheme of the project. 
 
 ### Static Pages
 This folder has been created to store the two central html files that are important to display the information that links all of this project together. In order to get to this point, there is a test file that has been created too, which was utilised throughout the development of this project. 
 
 ### Configuration 
-There has also been the addition of a configuration file that will allow the uesr to access all of the information that is on the database, whilst being able to use the login information on their own machine. This has been completed for additional security and functionality purposes. A basic template for this config file has also been developed. 
+There has also been the addition of a configuration file that will allow the user to access all of the information that is on the database, whilst being able to use the login information on their own machine. This has been completed for additional security and functionality purposes. A basic template for this configuration file has also been developed. 
 
 ### Requirements
 Given that this project has been developed in a virtual environment, a requirements.txt file has been added to allow the end user to operate the application on their machine. There is guidance on how to operate this requirements file that is listed in the installation section of this overview.
 
+### gitignore
+A gitignore file has been created to allow for better security on this project. This has been updated throughout the development of the project lifecycle.
 
 ## Bibliography - Centralised 
 https://stackoverflow.com/questions/16562577/how-can-i-make-a-button-redirect-my-page-to-another-page, retrieved on 29/11/2021 <br>
