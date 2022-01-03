@@ -7,19 +7,23 @@ The purpose of this project is to be able to demonstrate a fundamental understan
 > REST API <br>
 > Database Table <br>
 > Web interface <br>
+
 The web application has been developed in Flask server with an API that performs calls with a database table. This API has been developed so that it can perform CRUD operations i.e., Create, Read, Update & Delete files. Authorisation has also been added to this project, such that only those with a specific Username & Password have access to this web application.
 
 ## Installation
 In order to run this Project, the user will have to clone the publicly available repository to their local machine, via https://github.com/jonkavana/data-representation-project Once this has been successfully completed, the user will need to be able to create a virtual environment. This can be completed with the following commands.
 > "python -m venv venv" <br>
 > ".\venv\Scripts\activate.bat" <br>
+
 Once the virtual has been stood up, a requirements text file will allow the environment to be re-created. The contents of this file can be accessed from any text file editor prior to running it. Once reviewed, run the following command:
+
 > "pip freeze -r requirements.txt" <br>
 
 You have now created the virtual environment if you have followed these steps correctly. If there are any issues with this, a listing of websites has been created in the Research & Support section detailed below.
 
 ## Instructions
 If you have successfully created a virtual environment as detailed in the 'Installation' section above, then you can proceed with the Project. Copy and paste the URL that the virtual environment generates into your preferred browser. This project has been developed in both Chrome & Firefox. Once you run this URL, you will automatically be shown the 'home.html' page. This page has been created so that it has a closed audience. For ease of access however, the credentials have been left in a semi-transparent manner in the field itself.
+
 > Username: Lecturer <br>
 > Password: DataRep <br>
 
@@ -29,13 +33,14 @@ These have been set to be case sensitive details. Once the user has submitted th
 
 ## Research & Support
 Pip Command Support - https://pip.pypa.io/en/stable/cli/pip_freeze/
+
 ## Additional Material
 There are also several test files that were developed in tandem with any of the functionality that was developed. These can be seen in the following files:
+
 > testDBSelect.py <br>
 > testStudentDao.py <br>
 
 The first of these files was created when there was a need to create a layer of security and to allow for a user not in the local devise to access the database. The second of these files was created whilst developing the basic operations of the web application.
-
 
 ## Bibliography - Centralised 
 https://stackoverflow.com/questions/16562577/how-can-i-make-a-button-redirect-my-page-to-another-page, retrieved on 29/11/2021 <br>
