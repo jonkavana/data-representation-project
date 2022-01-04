@@ -71,6 +71,12 @@ Given that this project has been developed in a virtual environment, a requireme
 ### gitignore
 A gitignore file has been created to allow for better security on this project. This has been updated throughout the development of the project lifecycle.
 
+## Future Development
+I think that the future development of this concept will be expanding out the database and being able to move it into a Python Server. 
+From a lessons learned perspective, i think some pen and paper drawings would have been the best place to start, detailing out the schema. The current view of the schema is a very fixed view in order to be able to get the Minimum Viable Product stood up. If this were being started anew, i think it would have been beneficial to create more attributes in the first table, to act as a link to a second, third and fourth table. I think that if there were a column in the students table, such as module, it would be pretty nice to be able to curate a list of all modules available. From this, we can create a view on what is in each module, who teaches it & the hours associated with it. These, in turn, would have acted as the basis for what could have been in the third and fourth tables.
+
+I think the next development from an overall perspective is to be able to host the code in a PythonAnywhere server. The benefit to this is that it is an industry recognised server setting for Python developers. Due to the fact it is a python environment, a lot of the pre-installed packages would be covered off, meaning that the time to create the environment is reduced.
+
 ## Bibliography - Centralised 
 https://stackoverflow.com/questions/16562577/how-can-i-make-a-button-redirect-my-page-to-another-page, retrieved on 29/11/2021 <br>
 https://www.w3schools.com/tags/tag_style.asp, retrieved on 29/11/2021 <br>
